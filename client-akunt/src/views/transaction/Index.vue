@@ -2,13 +2,14 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-8">
+                <h3 class="mb-3 d-grid gap-2 d-md-flex justify-content-md-center">Transaction</h3>
                 <router-link :to="{ name: 'transaction.create' }"
-                class="btn btn-primary btn-sm rounded shadow mb-3">
+                class="btn btn-primary btn-sm rounded shadow mb-2">
                     Add Transaction
                 </router-link>
 
                 <div class="card rounded shadow">
-                    <div class="card-header">
+                    <div class="card-header bg-warning rounded">
                         Transaction List
                     </div>
 
@@ -34,7 +35,9 @@
                                             class="btn btn-sm btn-outline-info">Edit
                                             </router-link>
 
-                                            <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                            <button class="btn btn-sm btn-outline-danger" @click.prevent="destroy(transaction.id, index)">
+                                                Delete
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -67,8 +70,20 @@ export default {
             });
         });
 
+        function destroy(id, index) {
+            axios.delete(
+                `http://localhost:8000/api/transaction/${id}`
+            )
+            .then(() => {
+                transactions.value.data.splice(index, 1);
+            }).catch((err) => {
+                console.log(err.response.data);
+            });
+        }
+
         return {
-            transactions
+            transactions,
+            destroy
         }
     }    
 }

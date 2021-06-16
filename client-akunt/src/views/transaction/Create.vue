@@ -2,13 +2,8 @@
         <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-8">
-                <router-link :to="{ name: 'transaction.index' }"
-                class="btn btn-warning btn-sm rounded shadow mb-3">
-                    Back
-                </router-link>
-
                 <div class="card rounded shadow">
-                    <div class="card-header">
+                    <div class="card-header text-white bg-info">
                         Create Transaction
                     </div>
 
@@ -17,22 +12,22 @@
                             <div class="mb-3">
                                 <label for="" class="form-label">Title</label>
                                 <input type="text" class="form-control" v-model="transaction.title">
-                                <div class="text-danger">
-                                    Validation Message
+                                <div v-if="validation.title" class="text-danger">
+                                    {{ validation.title[0] }}
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Amount</label>
                                 <input type="number" class="form-control" v-model="transaction.amount">
-                                <div class="text-danger">
-                                    Validation Message
+                                <div v-if="validation.amount" class="text-danger">
+                                    {{ validation.amount[0] }}
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Time</label>
                                 <input type="text" class="form-control" placeholder="yyyy-mm-dd hh:mm:ss" v-model="transaction.time">
-                                <div class="text-danger">
-                                    Validation Message
+                                <div v-if="validation.time" class="text-danger">
+                                    {{ validation.time[0] }}
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -41,11 +36,17 @@
                                     <option value="expense">Expense</option>
                                     <option value="revenue">Revenue</option>
                                 </select>
-                                <div class="text-danger">
-                                    Validation Message
+                                <div v-if="validation.type" class="text-danger">
+                                    {{ validation.type[0] }}
                                 </div>
                             </div>
-                            <button class="btn btn-outline-success">Submit</button>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                                <button class="btn btn-info me-md-2">Submit</button>
+                                <router-link :to="{ name: 'transaction.index' }"
+                                    class="btn btn-outline-light text-dark">
+                                    Cancel
+                                </router-link>
+                            </div>
                         </form>
                     </div>
                 </div>
